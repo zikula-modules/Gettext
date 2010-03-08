@@ -1,0 +1,164 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula component\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-14 12:55-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: pnuser.php:48
+msgid "You must select module or theme"
+msgstr ""
+
+#: pnuser.php:53
+msgid "You must enter the name of the module or theme (case sensitive)"
+msgstr ""
+
+#: pnuser.php:58
+msgid "Please specify zip/tgz file!"
+msgstr ""
+
+#: pnuser.php:148
+msgid "Please specify .po file!"
+msgstr ""
+
+#: pnversion.php:13
+msgid "Gettext"
+msgstr ""
+
+#: pnversion.php:14
+msgid "Extract gettext strings from themes and modules"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:3
+msgid "Gettext Key Extractor"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:14
+msgid "Available to download"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:14
+#: pntemplates/gettext_user_downloadmo.htm:7
+msgid "here"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:18
+msgid "Unable to extract POT file due to problems displayed above."
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:19
+msgid "Go back"
+msgstr ""
+
+#: pntemplates/gettext_user_compilemo.htm:6
+#: pntemplates/gettext_user_downloadmo.htm:3
+msgid "Gettext PO to MO Compiler"
+msgstr ""
+
+#: pntemplates/gettext_user_compilemo.htm:7
+msgid "This utility will compile a .po translation file into .mo"
+msgstr ""
+
+#: pntemplates/gettext_user_compilemo.htm:9
+msgid "Include fuzzy matches?"
+msgstr ""
+
+#: pntemplates/gettext_user_compilemo.htm:13
+msgid "Upload .po file"
+msgstr ""
+
+#: pntemplates/gettext_user_compilemo.htm:19
+#: pntemplates/gettext_user_extract.htm:51
+msgid "Submit"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:4
+msgid ""
+"Create a zip or tar.gz of your module or theme component.  The archive "
+"should contain the component's folder."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:5
+msgid ""
+"In this example we will used a module called HelloWorld.  The archive would "
+"contain the module files in the folder"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:6
+msgid "just as you would expect it to appear in your modules/ folder."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:13
+msgid ""
+"This utility will unpack this, extract the gettext strings and provide a ."
+"zip download with .pot file."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:14
+msgid "The completed .zip will contain the the POT file in /locale"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:16
+msgid "template of all extracted translation keys"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:19
+msgid ""
+"This service is provided free of charge and carries no warrenty. Once your "
+"files are uploaded to the server, they are immediately processed and "
+"deleted.  Your files are not stored on the server."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:20
+msgid ""
+"By using this script you explicitly release us from any liability and you "
+"grant us use of the files for the express purpose of extracting the gettext "
+"string after which point we delete the module or theme files."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:29
+msgid ".POT Extractor"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:31
+msgid "Component Type"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:33
+msgid "Theme"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:35
+msgid "Module"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:40
+msgid "Name"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:42
+msgid "Module or Theme Name (case sensitive exactly as module/theme folder)"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:45
+msgid "zip/tgz file"
+msgstr ""
+
+#: pntemplates/gettext_user_menu.htm:3
+msgid "Gettext Extraction Panels"
+msgstr ""
+
+#: pntemplates/gettext_user_downloadmo.htm:6
+msgid "Ready for download"
+msgstr ""

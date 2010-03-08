@@ -1,0 +1,147 @@
+#: pnversion.php:12
+msgid "Gettext"
+msgstr ""
+
+#: pnversion.php:13
+msgid "Extract gettext strings from themes and modules"
+msgstr ""
+
+#: pnuser.php:42
+msgid "You must select module or theme"
+msgstr ""
+
+#: pnuser.php:47
+msgid "You must enter the name of the module or theme (case sensitive)"
+msgstr ""
+
+#: pnuser.php:52
+msgid "Please specify zip/tgz file!"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:3 pntemplates/gettext_user_menu.htm:3
+msgid "Gettext Extraction Panels"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:7
+msgid "Ready for download"
+msgstr ""
+
+#: pntemplates/gettext_user_download.htm:7
+msgid "here"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:7 pntemplates/gettext_user_main.htm:7
+msgid "Gettext Extractor"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:10
+msgid ""
+"Create a zip or tar.gz of your module or theme component.  The archive "
+"should contain the component\\'s folder."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:11
+msgid ""
+"In this example we will used a module called HelloWorld.  The archive would "
+"contain the module files in the folder"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:12
+msgid "just as you would expect it to appear in your modules/ folder."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:18
+msgid ""
+"This utility will unpack this, extract the gettext strings and provide a ."
+"zip download with .pot and .po files."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:19
+msgid ""
+"If you have an existing translation po file this utility will automatically "
+"merge new untranslated keys into it."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:20
+msgid "Just add the .po file in the form"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:21
+msgid "If you dont have an existing .po file it will be created."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:22
+msgid ""
+"The utility includes the .pot file for completeness in case you use 3rd "
+"party utilities to merge with your existing translations."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:24
+msgid "The completed .zip will contain the following files"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:26
+msgid "existing po merged with new pot"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:27
+msgid "backup of any existing po"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:28
+msgid "all gettext extracted keys"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:29
+msgid "errors will appear here"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:30
+msgid "list of files extracted from"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:32
+msgid ""
+"This service is provided free of charge and carries no warrenty. Once your "
+"files are uploaded to the server, they are immediately processed and "
+"deleted.  Your files are not stored on the server."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:33
+msgid ""
+"By using this script you explicitly release us from any liability and you "
+"grant us use of the files for the express purpose of extracting the gettext "
+"string after which point we delete the module or theme files."
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:36
+msgid "Component Type"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:38
+#: pntemplates/gettext_user_main.htm:11
+msgid "Theme"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:40
+#: pntemplates/gettext_user_main.htm:13
+msgid "Module"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:46
+#: pntemplates/gettext_user_main.htm:19
+msgid "Name:"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:48
+msgid "Module or Theme Name (case sensitive exactly as module/theme folder):"
+msgstr ""
+
+#: pntemplates/gettext_user_extract.htm:51
+#: pntemplates/gettext_user_main.htm:23
+msgid "zip/tgz file:"
+msgstr ""
+
+#: pntemplates/gettext_user_main.htm:9
+msgid "Module or Theme?"
+msgstr ""
