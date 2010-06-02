@@ -189,21 +189,36 @@ function handleNode($node, $cleanup = false)
             }
         }
     }
-    return $node = TDO . $name . $tags . TDC;
+    //return $node = TDO . $name . $tags . TDC;
+    return $node = $name . $tags;
 }
 
 function processContent($content, $cleanup = false)
 {
+    $content = preg_replace_callback('`(<(script|style)[^>]*>)(.*?)(</\2>)`s', 'z_prefilter_add_literal_callback', $content);
+
     // compile plugin tags
-    $regex = '#' . preg_quote(TDO) . '\s*(.*?)\s*' . preg_quote(TDC) . '#';
+    $regex = '#{\s*(.*?)\s*}#';
     $content = preg_replace_callback($regex, create_function('$matches', 'return handleNode($matches[1]' . ($cleanup ? ', true' : '') . ');'), $content);
 
     // compile any template php open tags
-    $regex = '#' . preg_quote(TDO) . '\s*php\s*' . preg_quote(TDC) . '#i';
+    $regex = '#{\s*php\s*}#i';
     $content = preg_replace($regex, PO, $content);
 
     // compile any template php close tags
-    $regex = '#' . preg_quote(TDO) . '\s*/php\s*' . preg_quote(TDC) . '#i';
+    $regex = '#{\s*/php\s*}#i';
+    $content = preg_replace($regex, PC, $content);
+
+    // compile plugin tags
+    $regex = '#<!--\[\s*(.*?)\s*\]-->#';
+    $content = preg_replace_callback($regex, create_function('$matches', 'return handleNode($matches[1]' . ($cleanup ? ', true' : '') . ');'), $content);
+
+    // compile any template php open tags
+    $regex = '#<!--\[\s*php\s*\]-->#i';
+    $content = preg_replace($regex, PO, $content);
+
+    // compile any template php close tags
+    $regex = '#<!--\[\s*/php\s*\]-->#i';
     $content = preg_replace($regex, PC, $content);
 
     return $content;
@@ -225,3 +240,13 @@ function z_filter_gettext_params($tpl_source)
     return (preg_replace_callback('#%%%(("|\')(.*)("|\'))%%%#', create_function('$m', 'return TDO . "gt text=" . $m[1] . TDC;'), $tpl_source));
 }
 
+function z_prefilter_add_literal_callback($matches)
+{
+    $tagOpen = $matches[1];
+    $script = $matches[3];
+    $tagClose = $matches[4];
+
+    $script = str_replace('{{', '{', str_replace('}}', '}', $script));
+
+    return $tagOpen . $script . $tagClose;
+}
