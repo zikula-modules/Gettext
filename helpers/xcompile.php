@@ -237,7 +237,7 @@ function processFile($filename)
 
 function z_filter_gettext_params($tpl_source)
 {
-    return (preg_replace_callback('#%%%(("|\')(.*)("|\'))%%%#', create_function('$m', 'return TDO . "gt text=" . $m[1] . TDC;'), $tpl_source));
+    return (preg_replace_callback('#%(("|\')(.*)("|\'))%#', create_function('$m', 'return TDO . "gt text=" . $m[1] . TDC;'), $tpl_source));
 }
 
 function z_prefilter_add_literal_callback($matches)
