@@ -197,6 +197,10 @@ function processContent($content, $cleanup = false)
 {
     $content = preg_replace_callback('`(<(script|style)[^>]*>)(.*?)(</\2>)`s', 'z_prefilter_add_literal_callback', $content);
 
+    // process {gettext} blocks
+    $content = preg_replace_callback('#(\{gettext\s{0,}comment=)((["|\'])(.+)(["|\'])\})(.*)\{/gettext\}#Usimx', 'z_block_gettext_comment', $content);
+    $content = preg_replace_callback('#\{gettext\}(.*)\{/gettext\}#Usimx', 'z_block_gettext_nocomment', $content);
+    
     // compile plugin tags
     $regex = '#{\s*(.*?)\s*}#';
     $content = preg_replace_callback($regex, create_function('$matches', 'return handleNode($matches[1]' . ($cleanup ? ', true' : '') . ');'), $content);
@@ -249,4 +253,19 @@ function z_prefilter_add_literal_callback($matches)
     $script = str_replace('{{', '{', str_replace('}}', '}', $script));
 
     return $tagOpen . $script . $tagClose;
+}
+
+function z_block_gettext_comment($matches)
+{
+    // 3 = delimiter
+    // 4 = comment
+    // 6 = gettext
+    $gettext = str_replace("'", "\\'", $matches[6]);
+    return PO . GO . '/*! ' . $matches[4] . ' */' . "'$gettext'" . GC . PC;
+}
+
+function z_block_gettext_nocomment($matches)
+{
+    $gettext = str_replace("'", "\\'", $matches[1]);
+    return PO . GO . "'$gettext'" . GC . PC;
 }
