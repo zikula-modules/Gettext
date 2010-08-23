@@ -40,7 +40,7 @@ if [ -d "$MPATH/$COMPONENT/locale" ]; then
   touch $PO
 
   echo "COMPILING TEMPLATES..."
-  egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__\(|_n\(|_f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|uniq > t_filelist.txt
+  egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__\(|_n\(|_f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|uniq > t_filelist.txt
   for TEMPLATE in `cat t_filelist.txt`
   do
     /usr/bin/php -f /tmp/xcompile.php $TEMPLATE
