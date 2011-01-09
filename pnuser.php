@@ -20,6 +20,7 @@ function gettext_user_main($args)
     }
     // create a new output object
     $pnRender = & pnRender::getInstance('Gettext', false);
+    $pnRender->assign('mtype', '');
 
     return $pnRender->fetch('gettext_user_extract.htm');
 }
@@ -74,6 +75,8 @@ function gettext_user_extract($args)
     `chmod 755 /tmp/xtractor.sh`;
     $helper = file_get_contents('modules/Gettext/helpers/xcompile.php');
     file_put_contents('/tmp/xcompile.php', $helper);
+    $helper = file_get_contents('modules/Gettext/helpers/xcompilejs.php');
+    file_put_contents('/tmp/xcompilejs.php', $helper);
     $command = "/tmp/xtractor.sh $path $archive $component $domain zip none";
     $output = '';
     exec($command, $outputArray, $result);
@@ -83,6 +86,7 @@ function gettext_user_extract($args)
 
     `/bin/rm -f /tmp/xtractor.sh`;
     `/bin/rm -f /tmp/xcompile.php`;
+    `/bin/rm -f /tmp/xcompilejs.php`;
     `rm -rf /$path/$component`;
 
     $pnRender->assign('result', $result);
