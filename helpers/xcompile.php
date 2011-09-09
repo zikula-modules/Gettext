@@ -153,7 +153,7 @@ function handleNode($node, $cleanup = false)
 
             $valid = 0;
             if ($name == 'gt') {
-                $comment = (isset($result['comment']) ? "/*! {$result[comment]}*/" : '');
+                $comment = (isset($result['comment']) ? "/*! {" . $result['comment'] . "}*/" : '');
                 if (isset($result['text']) && substr($result['text'], 0, 1) !== '$') {
                     $text = $result['text'];
                     if (isset($result['plural'])) {
