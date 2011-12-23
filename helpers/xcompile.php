@@ -115,7 +115,7 @@ function parse($text)
             }
 
             // fix spaces in the name
-            $temp = split("[\r\n\t ]+", $name);
+            $temp = preg_split("/[\r\n\t\s]+/", $name);
             if (count($temp) > 1) {
                 $name = array_pop($temp);
             }
