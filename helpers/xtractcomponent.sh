@@ -42,7 +42,7 @@ if [ -d "$MPATH/locale" ]; then
 
   echo "EXTRACTING CORE FILES..."
   echo "Finding PHP files..."
-  find -type f -iname "*.php" > filelist.txt
+  find . -type f -iname "*.php" > filelist.txt
   ls *.php >> filelist.txt
   
   echo "Finding templates..."
