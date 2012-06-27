@@ -47,7 +47,7 @@ if [ -d "$TMPD/locale" ]; then
   ls *.php >> filelist.txt
   
   echo "Finding templates..."
-  egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|grep -v .js|uniq \
+  egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext\(|_pgettext\(|_npgettext\(|_dpgettext\(|_dnpgettext\(|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|grep -v .js|uniq \
     |egrep "includes/templates/|install/|system/|themes/andreas08/|themes/Atom/|themes/Printer/|themes/rss/|themes/SeaBreeze/|themes/voodoodolly/" > t_filelist.txt
 
   # separate javascript
