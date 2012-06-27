@@ -52,7 +52,7 @@ if [ -d "$TMPD/locale" ]; then
 
   # separate javascript
   echo "Finding javascript..."
-  egrep -r "__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep .js|uniq \
+  egrep -r "__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext\(|_pgettext\(|_npgettext\(|_dpgettext\(|_dnpgettext\(|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep .js|uniq \
     |egrep "javascript/|includes/templates/|install/|system/|themes/andreas08/|themes/Atom/|themes/Printer/|themes/rss/|themes/SeaBreeze/|themes/voodoodolly/" > js_filelist.txt
 
   echo "Compiling templates..."
@@ -72,17 +72,45 @@ if [ -d "$TMPD/locale" ]; then
   cat t_filelist.txt >> filelist.txt
   echo "EXTRACTING KEYS..."
   xgettext --debug --language=PHP --add-comments=! --from-code=utf-8 \
-    --keyword=_gettext:1 --keyword=_ngettext:1,2 --keyword=_dgettext:2 \
-    --keyword=_dngettext:2,3 --keyword=__:1 --keyword=_n:1,2 \
-    --keyword=__f:1 --keyword=_fn:1,2 --keyword=no__:1 \
+    --keyword=_gettext:1 \
+    --keyword=_ngettext:1,2 \
+    --keyword=_dgettext:2 \
+    --keyword=_dngettext:2,3 \
+    --keyword="_pgettext:1c,2" \
+    --keyword="_dpgettext:2c,3" \
+    --keyword="_npgettext:1c,2,3" \
+    --keyword="_dnpgettext:2c,3,4" \
+    --keyword=__:1 \
+    --keyword=_n:1,2 \
+    --keyword=__f:1 \
+    --keyword=_fn:1,2 \
+    --keyword=no__:1 \
+    --keyword=__p:1c,2 \
+    --keyword=_np:1c,2,3 \
+    --keyword=__fp:1c,2 \
+    --keyword=_fnp:1c,2,3 \
     --output-dir=locale -o $POT -f filelist.txt
   msgmerge -U pofile.pot locale/$POT
   cp -f pofile.pot $MPATH/locale/$POT
 
   xgettext --debug --language=PHP --add-comments=! --from-code=utf-8 \
-    --keyword=_gettext:1 --keyword=_ngettext:1,2 --keyword=_dgettext:2 \
-    --keyword=_dngettext:2,3 --keyword=__:1 --keyword=_n:1,2 \
-    --keyword=__f:1 --keyword=_fn:1,2 --keyword=no__:1 \
+    --keyword=_gettext:1 \
+    --keyword=_ngettext:1,2 \
+    --keyword=_dgettext:2 \
+    --keyword=_dngettext:2,3 \
+    --keyword="_pgettext:1c,2" \
+    --keyword="_dpgettext:2c,3" \
+    --keyword="_npgettext:1c,2,3" \
+    --keyword="_dnpgettext:2c,3,4" \
+    --keyword=__:1 \
+    --keyword=_n:1,2 \
+    --keyword=__f:1 \
+    --keyword=_fn:1,2 \
+    --keyword=no__:1 \
+    --keyword=__p:1c,2 \
+    --keyword=_np:1c,2,3 \
+    --keyword=__fp:1c,2 \
+    --keyword=_fnp:1c,2,3 \
     --output-dir=locale -o $POTJS -f js_filelist.txt
   msgmerge -U pofile_js.pot locale/$POTJS
   cp -f pofile_js.pot $MPATH/locale/$POTJS
