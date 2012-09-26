@@ -188,9 +188,12 @@ function handleNode($node, $cleanup = false)
 
             }
         }
+
+        $node = $name . $tags;
     }
+
     //return $node = TDO . $name . $tags . TDC;
-    return $node = $name . $tags;
+    return $node;
 }
 
 function processContent($content, $cleanup = false)
