@@ -17,7 +17,8 @@ class Gettext_Version extends Zikula_AbstractVersion
         //! this is the URL that will be displayed for the module
         $version['url'] = $this->__('gettext');
         $version['description'] = $this->__('Extract translation strings from themes and modules');
-        $version['version'] = '1.1.0';
+        $version['version'] = '1.2.0';
+	$version['core_min'] = '1.3.6';
         $version['contact'] = 'drak@zikula.org';
         $version['securityschema'] = array('Gettext::' => '::');
         return $version;
