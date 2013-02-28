@@ -1,20 +1,44 @@
 #!/bin/sh
+
+if [ "$1" = '-h' -o $# -lt 5 ]
+then
+    echo 'Usage: '"$0"' outputfolder inputpackage packagename [module|theme]_packagename [zip|plain] [tmp|local]'
+    echo ''
+    echo ' - outputfolder: absolute path to the automatically created folder for extraction.'
+    echo ' - inputpackage: absolute path to the zipfile or folder where the source is located.'
+    echo ' - packagename:  the name of the module or theme, e.g. HelloWorld.'
+    echo ' - [zip|plain]:  specifies whether the inputpackage is a zip file of a plain folder.'
+    echo ' - [tmp|local]:  run scripts from /tmp (default) or relative from local current folder.'
+    echo 'Note: specified paths should be absolute'
+    exit 1
+fi
+
+# assign arguments to variables
 MPATH=$1
 ARCHIVE=$2
 COMPONENT=$3
 DOMAIN=$4
 ARCHV=$5
+if [ "$6" = 'local' ]
+then
+    # extract the current working dir
+    SCRIPTLOC="$(cd "$(dirname "$0")" && pwd)"
+else
+    SCRIPTLOC="/tmp"
+fi
 
+# define the output files
 PO=$DOMAIN.po
 POJS=${DOMAIN}_js.po
 POT=$DOMAIN.pot
 POTJS=${DOMAIN}_js.pot
 
+# --- function that will compile the list of strings from the javascript files
 compilejsfiles() {
   echo "COMPILING JAVASCRIPT FILES..."
   for TEMPLATE in `cat js_filelist.txt`
   do
-    /usr/bin/php -f /tmp/xcompilejs.php $TEMPLATE
+    /usr/bin/php -f $SCRIPTLOC/xcompilejs.php $TEMPLATE
     if [ $? -ne 0 ]; then
       echo "ERROR: Failed to compile javascript $TEMPLATE see output for further information."
       exit 1
@@ -22,6 +46,7 @@ compilejsfiles() {
   done
 }
 
+# --- function that will generate the JS pot file
 extractstringsjs() {
   echo "EXTRACTING TRANSLATION STRINGS FROM JS FILES..."
   xgettext --debug --language=PHP --add-comments=! --from-code=utf-8 \
@@ -53,6 +78,7 @@ extractstringsjs() {
   mv $MPATH/pofile_js.pot $MPATH/$COMPONENT/locale/$POTJS
 }
 
+# create outputfolder, extract inputpackage and generate empty pot files
 mkdir -p $MPATH
 cd $MPATH
 cat >pofile.pot <<EOF
@@ -81,6 +107,7 @@ if [ $ARCHV == 'zip' ]; then
 fi
 unzip $ARCHIVE >/dev/null 2>/dev/null
 
+# start the actual extraction
 if [ -d "$MPATH/$COMPONENT/locale" ]; then
   cd $MPATH/$COMPONENT
   touch $PO
@@ -99,7 +126,7 @@ if [ -d "$MPATH/$COMPONENT/locale" ]; then
   echo "COMPILING PHP FILES AND TEMPLATES..."
   for TEMPLATE in `cat t_filelist.txt`
   do
-    /usr/bin/php -f /tmp/xcompile.php $TEMPLATE
+    /usr/bin/php -f $SCRIPTLOC/xcompile.php $TEMPLATE
     if [ $? -ne 0 ]; then
       echo "ERROR: Failed to compile $TEMPLATE see output for further information."
       exit 1
