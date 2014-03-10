@@ -6,13 +6,15 @@
         <legend>{gt text="Gettext PO to MO Compiler"}</legend>
         <p class="alert alert-info">{gt text='This utility will compile a .po translation file into .mo'}</p>
         <div class="form-group">
-            <label for="forcefuzzy">{gt text="Include fuzzy matches?"}</label>
+            <label for="forcefuzzy" class="col-lg-3 control-label">{gt text="Include fuzzy matches"}</label>
             <div class="col-lg-9">
-                <input name="forcefuzzy" type="checkbox" id="checkbox" value="1" />
+                <div class="checkbox">
+                    <input name="forcefuzzy" type="checkbox" id="checkbox" value="1" />
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <label for="po">{gt text="Upload .po file"}</label>
+            <label for="po" class="col-lg-3 control-label">{gt text="Upload .po file"}</label>
             <div class="col-lg-9">
                 <input type="file" name="po" id="po" size="50" maxlength="255" />
             </div>

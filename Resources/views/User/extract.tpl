@@ -26,16 +26,16 @@
 <form class="form form-horizontal" action="{modurl modname='Gettext' type='user' func='extract'}" method="post" enctype="multipart/form-data">
     <fieldset>
         <input type="hidden" name="authid" value="{insert name='generateauthkey' module=$module}" />
-        <legend>{gt text=".POT Extractor"}</legend>
+        <legend>{gt text="%s Extractor" tag1='.POT'}</legend>
         <div class="form-group">
             <label for="mtype" class="col-lg-3 control-label">{gt text="Component Type"}</label>
             <div class="col-lg-9" id="mtype">
                 <div class="radio">
-                    <input id="mtype1" type="radio" name="mtype" value="theme"{if $mtype eq 'theme'} checked="checked"{/if} />
+                    <input id="mtype1" type="radio" name="mtype" value="theme"{if $mtype|default:'module' eq 'theme'} checked="checked"{/if} />
                     <label for="mtype1">{gt text="Theme" }</label>
                 </div>
                 <div class="radio">
-                    <input id="mtype0" type="radio" name="mtype" value="module"{if $mtype eq 'module'} checked="checked"{/if} />
+                    <input id="mtype0" type="radio" name="mtype" value="module"{if $mtype|default:'module' eq 'module'} checked="checked"{/if} />
                     <label for="mtype0">{gt text="Module" }</label>
                 </div>
             </div>
@@ -43,8 +43,8 @@
         <div class="form-group">
             <label for="component" class="col-lg-3 control-label">{gt text="Name"}</label>
             <div class="col-lg-9">
-                <input type="text" name="component" id="component" value="" size="50" maxlength="255" />
-                <em class="alert alert-info">{gt text="Module or Theme Name (case sensitive exactly as module/theme folder)"}</em>
+                <input type="text" name="component" id="component" value="" class="form-control" />
+                <em class="help-block">{gt text="Module or Theme Name (case sensitive exactly as module/theme folder)"}</em>
             </div>
         </div>
         <div class="form-group">
