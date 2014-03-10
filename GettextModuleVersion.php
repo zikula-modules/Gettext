@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zikula Application Framework
  *
@@ -7,7 +8,10 @@
  * @license GNU/LGPL - http://www.gnu.org/copyleft/lgpl.html
  */
 
-class Gettext_Version extends Zikula_AbstractVersion
+namespace Zikula\GettextModule;
+
+
+class GettextModuleVersion extends \Zikula_AbstractVersion
 {
     public function getMetaData()
     {
@@ -18,7 +22,7 @@ class Gettext_Version extends Zikula_AbstractVersion
         $version['url'] = $this->__('gettext');
         $version['description'] = $this->__('Extract translation strings from themes and modules');
         $version['version'] = '1.2.0';
-	$version['core_min'] = '1.3.6';
+        $version['core_min'] = '1.3.6';
         $version['contact'] = 'drak@zikula.org';
         $version['securityschema'] = array('Gettext::' => '::');
         return $version;

@@ -7,20 +7,24 @@
  * @link http://www.zikula.org
  * @license GNU/LGPL - http://www.gnu.org/copyleft/lgpl.html
  */
-class Gettext_Installer extends Zikula_AbstractInstaller
+
+namespace Zikula\GettextModule;
+
+
+class GettextModuleInstaller extends \Zikula_AbstractInstaller
 {
     public function install()
     {
         // Initialisation successful
         return true;
     }
-
+    
     public function upgrade($oldversion)
     {
         // Update successful
         return true;
     }
-
+    
     /**
      * @return bool true if successful, false otherwise
      */
