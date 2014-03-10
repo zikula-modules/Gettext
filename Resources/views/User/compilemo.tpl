@@ -1,21 +1,26 @@
+{include file="User/menu.tpl"}
 {insert name="getstatusmsg"}
-<form class="z-form" action="{modurl modname="Gettext" type="user" func="compilemo"}" method="post" enctype="multipart/form-data">
+<form class="form form-horizontal" action="{modurl modname="Gettext" type="user" func="compilemo"}" method="post" enctype="multipart/form-data">
     <fieldset>
         <input type="hidden" name="authid" value="{insert name="generateauthkey" module="gettext"}" />
         <legend>{gt text="Gettext PO to MO Compiler"}</legend>
-        <p class="z-informationmsg">%%%'This utility will compile a .po translation file into .mo'%%%</p>
-        <div class="z-formrow">
+        <p class="alert alert-info">{gt text='This utility will compile a .po translation file into .mo'}</p>
+        <div class="form-group">
             <label for="forcefuzzy">{gt text="Include fuzzy matches?"}</label>
-            <input name="forcefuzzy" type="checkbox" id="checkbox" value="1" />
+            <div class="col-lg-9">
+                <input name="forcefuzzy" type="checkbox" id="checkbox" value="1" />
+            </div>
         </div>
-        <div class="z-formrow">
+        <div class="form-group">
             <label for="po">{gt text="Upload .po file"}</label>
-            <input type="file" name="po" id="po" size="50" maxlength="255" />
+            <div class="col-lg-9">
+                <input type="file" name="po" id="po" size="50" maxlength="255" />
+            </div>
         </div>
     </fieldset>
 
-    <div class="z-formbuttons">
-        {button src="button_ok.png" set="icons/small" __alt="Submit" __title="Submit"}
-        <a href="{modurl modname="Gettext" type="user" func="main"}">{img modname="core" src="button_cancel.png" set="icons/small" alt="Cancel" title="Cancel"}</a>
+    <div class="col-lg-offset-3 col-lg-9">
+        <button class="btn btn-success" type="submit" name="Save"><i class='fa fa-gear fa-lg'></i> {gt text="Compile"}</button>
+        <a class="btn btn-danger" href="{modurl modname=$module type='admin' func='main'}" title="{gt text="Cancel"}"><i class='fa fa-times fa-lg'></i> {gt text="Cancel"}</a>
     </div>
 </form>

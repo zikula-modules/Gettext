@@ -1,4 +1,5 @@
-<div class="z-informationmsg">
+{include file="User/menu.tpl"}
+<div class="alert alert-info">
     <p>
         {gt text="Create a zip or tar.gz of your module or theme component.  The archive should contain the component's folder."}  <br />
         {gt text="In this example we will used a module called HelloWorld.  The archive would contain the module files in the folder"} <strong>HelloWorld</strong>
@@ -6,8 +7,8 @@
     </p>
     <pre>
         HelloWorld/
-        HelloWorld/pnuser.php
-        HelloWorld/pntemplates/
+        HelloWorld/Controller/UserController.php
+        HelloWorld/Resources/views/User/main.tpl
     </pre>
     <p>{gt text="This utility will unpack this, extract the gettext strings and provide a .zip download with .pot file."}</p>
     <p>{gt text="The completed .zip will contain the the POT file in /locale"}</p>
@@ -15,39 +16,47 @@
         locale/module_helloworld.pot - {gt text="template of all extracted translation keys"}
     </pre>
     <p>
-        {gt text="This service is provided free of charge and carries NO WARRENTY. Once your files are uploaded to the server, they are IMMEDIATELY processed and deleted.  Your files are not stored on the server."}
+        {gt text="This service is provided free of charge and carries NO WARRANTY. Once your files are uploaded to the server, they are IMMEDIATELY processed and deleted.  Your files are not stored on the server."}
         {gt text="By using this script you explicitly release us from any liability and you grant us use of the files for the express purpose of extracting the gettext string after which point the module or theme files are deleted."}
     </p>
 </div>
 
 {insert name="getstatusmsg"}
 
-<form class="z-form" action="{modurl modname='Gettext' type='user' func='extract'}" method="post" enctype="multipart/form-data">
+<form class="form form-horizontal" action="{modurl modname='Gettext' type='user' func='extract'}" method="post" enctype="multipart/form-data">
     <fieldset>
-        <input type="hidden" name="authid" value="{insert name='generateauthkey' module='gettext'}" />
+        <input type="hidden" name="authid" value="{insert name='generateauthkey' module=$module}" />
         <legend>{gt text=".POT Extractor"}</legend>
-        <div class="z-formrow">
-            <label for="mtype">{gt text="Component Type"}</label>
-            <span id="mtype">
-                <label for="mtype1">{gt text="Theme" }</label>
-                <input id="mtype1" type="radio" name="mtype" value="theme"{if $mtype eq 'theme'} checked="checked"{/if} />
-                <label for="mtype0">{gt text="Module" }</label>
-                <input id="mtype0" type="radio" name="mtype" value="module"{if $mtype eq 'module'} checked="checked"{/if} />
-            </span>
+        <div class="form-group">
+            <label for="mtype" class="col-lg-3 control-label">{gt text="Component Type"}</label>
+            <div class="col-lg-9" id="mtype">
+                <div class="radio">
+                    <input id="mtype1" type="radio" name="mtype" value="theme"{if $mtype eq 'theme'} checked="checked"{/if} />
+                    <label for="mtype1">{gt text="Theme" }</label>
+                </div>
+                <div class="radio">
+                    <input id="mtype0" type="radio" name="mtype" value="module"{if $mtype eq 'module'} checked="checked"{/if} />
+                    <label for="mtype0">{gt text="Module" }</label>
+                </div>
+            </div>
         </div>
-        <div class="z-formrow">
-            <label for="component">{gt text="Name"}</label>
-            <input type="text" name="component" id="component" value="" size="50" maxlength="255" />
-            <em class="z-sub z-formnote">{gt text="Module or Theme Name (case sensitive exactly as module/theme folder)"}</em>
+        <div class="form-group">
+            <label for="component" class="col-lg-3 control-label">{gt text="Name"}</label>
+            <div class="col-lg-9">
+                <input type="text" name="component" id="component" value="" size="50" maxlength="255" />
+                <em class="alert alert-info">{gt text="Module or Theme Name (case sensitive exactly as module/theme folder)"}</em>
+            </div>
         </div>
-        <div class="z-formrow">
-            <label for="archive">{gt text="zip/tgz file"}</label>
-            <input type="file" name="archive" id="archive" size="50" maxlength="255" />
+        <div class="form-group">
+            <label for="archive" class="col-lg-3 control-label">{gt text="zip/tgz file"}</label>
+            <div class="col-lg-9">
+                <input type="file" name="archive" id="archive" size="50" maxlength="255" />
+            </div>
         </div>
     </fieldset>
 
-    <div class="z-formbuttons">
-        {button src="button_ok.png" set="icons/small" __alt="Submit" __title="Submit"}
-        <a href="{modurl modname='Gettext' type='user' func='main'}">{img modname="core" src="button_cancel.png" set="icons/small" alt="Cancel" title="Cancel"}</a>
+    <div class="col-lg-offset-3 col-lg-9">
+        <button class="btn btn-success" type="submit" name="Save"><i class='fa fa-gear fa-lg'></i> {gt text="Generate"}</button>
+        <a class="btn btn-danger" href="{modurl modname=$module type='admin' func='main'}" title="{gt text="Cancel"}"><i class='fa fa-times fa-lg'></i> {gt text="Cancel"}</a>
     </div>
 </form>
