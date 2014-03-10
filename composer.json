@@ -1,13 +1,14 @@
 {
     "name": "zikula/gettext-module",
-    "description": "Change me description Module",
+    "description": "Compile translations for modules and themes.",
     "type": "zikula-module",
     "license": "LGPL-3.0+",
     "authors": [
         {
-            "name": "Your name",
-            "homepage": "http://example.com/",
-            "email": "example@example.com"
+            "name": "Dordrak Karma",
+            "homepage": "http://www.zikula.com/",
+            "email": "drak@zikula.com",
+            "role": "owner"
         }
     ],
     "autoload": {
