@@ -57,6 +57,6 @@
 
     <div class="col-lg-offset-3 col-lg-9">
         <button class="btn btn-success" type="submit" name="Save"><i class='fa fa-gear fa-lg'></i> {gt text="Generate"}</button>
-        <a class="btn btn-danger" href="{modurl modname=$module type='admin' func='extract'}" title="{gt text="Cancel"}"><i class='fa fa-times fa-lg'></i> {gt text="Cancel"}</a>
+        <a class="btn btn-danger" href="{modurl modname=$module type='user' func='extract'}" title="{gt text="Cancel"}"><i class='fa fa-times fa-lg'></i> {gt text="Cancel"}</a>
     </div>
 </form>
