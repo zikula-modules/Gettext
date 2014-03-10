@@ -22,9 +22,9 @@
 
 {insert name="getstatusmsg"}
 
-<form class="z-form" action="{modurl modname="Gettext" type="user" func="extract"}" method="post" enctype="multipart/form-data">
+<form class="z-form" action="{modurl modname='Gettext' type='user' func='extract'}" method="post" enctype="multipart/form-data">
     <fieldset>
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="gettext"}" />
+        <input type="hidden" name="authid" value="{insert name='generateauthkey' module='gettext'}" />
         <legend>{gt text=".POT Extractor"}</legend>
         <div class="z-formrow">
             <label for="mtype">{gt text="Component Type"}</label>
@@ -48,6 +48,6 @@
 
     <div class="z-formbuttons">
         {button src="button_ok.png" set="icons/small" __alt="Submit" __title="Submit"}
-        <a href="{modurl modname="Gettext" type="user" func="main"}">{img modname="core" src="button_cancel.png" set="icons/small" alt="Cancel" title="Cancel"}</a>
+        <a href="{modurl modname='Gettext' type='user' func='main'}">{img modname="core" src="button_cancel.png" set="icons/small" alt="Cancel" title="Cancel"}</a>
     </div>
 </form>
