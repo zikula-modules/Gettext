@@ -7,9 +7,9 @@
 # Run the program from the zikula root
 # 
 # e.g.
-# modules/Gettext/helpers/convertlanguagepack.sh [foreignlangcode] [newL2Code] [path to component] [domain] [source encoding]
+# modules/Gettext/Helper/convertlanguagepack.sh [foreignlangcode] [newL2Code] [path to component] [domain] [source encoding]
 # NB: Source encoding must be one of ISO-8859-x or UTF-8
-# modules/Gettext/helpers/convertlanguagepack.sh deu de modules/Foo module_foo ISO-8859-1
+# modules/Gettext/Helper/convertlanguagepack.sh deu de modules/Foo module_foo ISO-8859-1
 #
 #######################################################################################
 
@@ -17,7 +17,7 @@
 if [ $# -ne 5 ]; then
   echo 1>&2 Usage: $0 [foreignlangcode] [newL2Code] [path to component] [domain] [source encoding]
   echo 1>&2 Note: Source encoding must be one of ISO-8859-x or UTF-8
-  echo 1>&2 Example: modules/Gettext/helpers/convertlanguagepack.sh deu de modules/Foo module_foo ISO-8859-1
+  echo 1>&2 Example: modules/Gettext/Helper/convertlanguagepack.sh deu de modules/Foo module_foo ISO-8859-1
   exit 127
 fi
 
@@ -29,7 +29,7 @@ SRCENCODING=$5
 COREFOR="languages/$FOR/core.php"
 COREENG="languages/eng/core.php"
 OUTPUT=/tmp/conversion
-TRANSLATEHELPER=modules/Gettext/helpers/convertlanguagepackhelper.php
+TRANSLATEHELPER=modules/Gettext/Helper/convertlanguagepackhelper.php
 rm -f $FOR.po
 rm -f $FOR.po~
 rm -f $OUTPUT

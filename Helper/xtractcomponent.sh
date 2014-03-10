@@ -51,7 +51,7 @@ if [ -d "$MPATH/locale" ]; then
   for TEMPLATE in `cat t_filelist.txt`
   do
     echo $TEMPLATE
-    /usr/bin/php -f $MYROOT/modules/Gettext/helpers/xcompile.php $TEMPLATE 
+    /usr/bin/php -f $MYROOT/modules/Gettext/Helper/xcompile.php $TEMPLATE
   done
   
   cat t_filelist.txt >> filelist.txt
