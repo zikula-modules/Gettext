@@ -3,7 +3,7 @@
 /**
  * Zikula Application Framework
  *
- * @copyright (c) 2009, Zikula Foundation
+ * @copyright (c) 2014, Zikula Foundation
  * @link http://www.zikula.org
  * @license GNU/LGPL - http://www.gnu.org/copyleft/lgpl.html
  */
@@ -16,7 +16,6 @@ use ModUtil;
 use System;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-
 class UserController extends \Zikula_AbstractController
 {
     /**
@@ -24,14 +23,7 @@ class UserController extends \Zikula_AbstractController
      */
     public function mainAction()
     {
-        // security check
-        if (!SecurityUtil::checkPermission('Gettext::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
-        }
-        // create a new output object
-        $this->view->setCaching(false);
-        $this->view->assign('mtype', '');
-        return $this->response($this->view->fetch('User/extract.tpl'));
+        return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
     }
     
     public function extractAction()
@@ -169,7 +161,7 @@ class UserController extends \Zikula_AbstractController
         $contents = file_get_contents($file);
         $length = strlen($contents);
         if ($length < 1) {
-            return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'main')));
+            return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
         }
         header('Content-Type: application/octet-stream');
         header("Content-Length: {$length}");

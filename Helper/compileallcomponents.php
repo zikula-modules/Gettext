@@ -1,6 +1,11 @@
 <?php
+
 /**
- * @author Drak, drak@zikula.org
+ * Zikula Application Framework
+ *
+ * @copyright (c) 2014, Zikula Foundation
+ * @link http://www.zikula.org
+ * @license GNU/LGPL - http://www.gnu.org/copyleft/lgpl.html
  */
 
 // PHP4 safe!

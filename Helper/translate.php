@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Zikula Application Framework
+ *
+ * @copyright (c) 2014, Zikula Foundation
+ * @link http://www.zikula.org
+ * @license GNU/LGPL - http://www.gnu.org/copyleft/lgpl.html
+ */
+
 if ($_SERVER['argc'] < 4) {
     die("Usage: " . $_SERVER['argv'][0] . " <english_define_file> <foreign_define_file> <output_file>\n");
 }
