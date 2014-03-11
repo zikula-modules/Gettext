@@ -51,7 +51,8 @@ class UserController extends \Zikula_AbstractController
             $this->request->getSession()->getFlashBag()->add('error', $this->__('You must enter the name of the module or theme (case sensitive)'));
             return $this->response($this->view->fetch('User/extract.tpl'));
         }
-        if (empty($_FILES['archive']['tmp_name'])) {
+        $archive = $this->request->files->get('archive', null);
+        if (empty($archive['tmp_name'])) {
             $this->request->getSession()->getFlashBag()->add('error', $this->__('Please specify zip/tgz file!'));
             return $this->response($this->view->fetch('User/extract.tpl'));
         }
@@ -61,7 +62,6 @@ class UserController extends \Zikula_AbstractController
         $pid = sha1($time);
         $path = "/tmp/{$pid}";
         // get files
-        $archive = $_FILES['archive']['tmp_name'];
         $helper = file_get_contents('modules/Gettext/Helper/xtractor.sh');
         file_put_contents('/tmp/xtractor.sh', $helper);
         `chmod 755 /tmp/xtractor.sh`;
@@ -130,12 +130,12 @@ class UserController extends \Zikula_AbstractController
         if (!isset($submit)) {
             return $this->response($this->view->fetch('User/compilemo.tpl'));
         }
-        if (empty($_FILES['po']['tmp_name'])) {
+        $po = $this->request->files->get('po', null);
+        if (empty($po['tmp_name'])) {
             $this->request->getSession()->getFlashBag()->add('error', $this->__('Please specify .po file!'));
             return $this->response($this->view->fetch('User/compilemo.tpl'));
         }
         // get files
-        $po = $_FILES['po']['tmp_name'];
         $helper = file_get_contents('modules/Gettext/Helper/xcompilemo.sh');
         file_put_contents('/tmp/xcompilemo.sh', $helper);
         `chmod 755 /tmp/xcompilemo.sh`;
