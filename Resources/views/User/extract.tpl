@@ -23,7 +23,7 @@
 
 {insert name="getstatusmsg"}
 
-<form class="form form-horizontal" action="{modurl modname='Gettext' type='user' func='extract'}" method="post" enctype="multipart/form-data">
+<form class="form form-horizontal" action="{modurl modname=$module type='user' func='extract'}" method="post" enctype="multipart/form-data">
     <fieldset>
         <input type="hidden" name="authid" value="{insert name='generateauthkey' module=$module}" />
         <legend>{gt text="%s Extractor" tag1='.POT'}</legend>

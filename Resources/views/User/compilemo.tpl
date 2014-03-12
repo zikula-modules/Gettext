@@ -1,8 +1,8 @@
 {include file="User/menu.tpl"}
 {insert name="getstatusmsg"}
-<form class="form form-horizontal" action="{modurl modname="Gettext" type="user" func="compilemo"}" method="post" enctype="multipart/form-data">
+<form class="form form-horizontal" action="{modurl modname=$module type="user" func="compilemo"}" method="post" enctype="multipart/form-data">
     <fieldset>
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="gettext"}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module=$module}" />
         <legend>{gt text="Gettext PO to MO Compiler"}</legend>
         <p class="alert alert-info">{gt text='This utility will compile a .po translation file into .mo'}</p>
         <div class="form-group">

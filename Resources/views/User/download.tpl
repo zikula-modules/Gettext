@@ -14,7 +14,7 @@
 {else}
 <p class="alert alert-danger">
     {gt text="Unable to extract POT file due to problems displayed above."}<br />
-    <a href="{modurl modname='Gettext' type='user' func='extract'}">{gt text="Go back"}</a>
+    <a href="{modurl modname=$module type='user' func='extract'}">{gt text="Go back"}</a>
 </p>
 {/if}
 <hr />
