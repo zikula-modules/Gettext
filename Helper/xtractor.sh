@@ -108,7 +108,7 @@ fi
 unzip $ARCHIVE >/dev/null 2>/dev/null
 
 # start the actual extraction
-if [ -d "$MPATH/$COMPONENT/locale" ]; then
+if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale" ]; then
   cd $MPATH/$COMPONENT
   touch $PO
   touch $POJS
@@ -206,8 +206,8 @@ if [ -d "$MPATH/$COMPONENT/locale" ]; then
   exit 0
 fi
 echo "ERROR: This doesn't look like a Gettext enabled module."
-echo "    1. Make sure this is a module that has been written for Zikula 1.2.0+"
-echo "       The module should NOT have a pnlang/ folder and it must have a locale/"
+echo "    1. Make sure this is a module that has been written for Zikula >= 1.2.0"
+echo "       The module should NOT have a pnlang/ folder and it must have a locale/ or Resources/locale"
 echo "    2. First make sure the name you entered for the folder matches exactly"
 echo "       with the module Folder name (CaSE SenSITive)"
 exit 1
