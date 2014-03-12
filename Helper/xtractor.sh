@@ -189,8 +189,7 @@ if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale
 
   if [ $ARCHV == 'zip' ]; then
     cd ..
-    zip -r $DOMAIN.zip $COMPONENT/locale/$POT
-    # >/dev/null 2>/dev/null
+    zip -r $DOMAIN.zip $COMPONENT/locale/$POT >/dev/null 2>/dev/null
     if [ $? -ne 0 ]; then
       echo "ERROR: Failed to create ZIP file - see output for explanation."
       exit 1
