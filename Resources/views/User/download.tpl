@@ -9,7 +9,7 @@
 <hr />
 {if $result=='0'}
 <p class="alert alert-info">
-    {gt text="Success!"} <a class="btn btn-success" href="{modurl modname='Gettext' type='user' func='download' key=$key c=$c d=$d}"><i class='fa fa-cloud-download fa-lg'></i> {gt text="download"}</a>
+    {gt text="Success!"} <a class="btn btn-success" href="{modurl modname=$module type='user' func='download' key=$key c=$c d=$d}"><i class='fa fa-cloud-download fa-lg'></i> {gt text="download"}</a>
 </p>
 {else}
 <p class="alert alert-danger">
