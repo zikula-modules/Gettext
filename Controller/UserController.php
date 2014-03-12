@@ -106,7 +106,7 @@ class UserController extends \Zikula_AbstractController
         $contents = file_get_contents($file);
         $length = filesize($file);
         if ($length < 1) {
-            System::redirect(ModUtil::url('Gettext', 'user', 'main'));
+            return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
         }
         ob_end_clean();
         ini_set('zlib.output_compression', 0);
