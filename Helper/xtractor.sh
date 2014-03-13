@@ -178,6 +178,10 @@ if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale
     echo "ERROR: Failed to generate POT file - see output for explanation."
     exit 1
   fi
+  if [ -d "$MPATH/$COMPONENT/locale" ]; then
+    mkdir -p $MPATH/$COMPONENT/locale
+    echo "created path $MPATH/$COMPONENT/locale"
+  fi
   mv $MPATH/pofile.pot $MPATH/$COMPONENT/locale/$POT
   if [ $? -ne 0 ]; then
     echo "ERROR: could not move $MPATH/pofile.pot to $MPATH/$COMPONENT/locale/$POT."
