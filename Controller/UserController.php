@@ -15,6 +15,7 @@ use SecurityUtil;
 use ModUtil;
 use System;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends \Zikula_AbstractController
 {
@@ -103,21 +104,30 @@ class UserController extends \Zikula_AbstractController
         $d = $this->request->query->get('d', null);
         $d = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $d);
         $file = "/tmp/{$key}/{$d}.zip";
-        $contents = file_get_contents($file);
+//        $contents = file_get_contents($file);
         $length = filesize($file);
         if ($length < 1) {
             return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
         }
         ob_end_clean();
         ini_set('zlib.output_compression', 0);
-        header('Cache-Control: no-store, no-cache');
-        header('Content-Type: application/x-zip');
-        header("Content-Length: {$length}");
-        header("Content-Disposition: attachment;filename={$c}-extracted.zip");
-        header('Content-Description: Gettext POT File');
-        echo $contents;
+        $response = new Response(readfile($file), Response::HTTP_OK, array(
+            'Cache-Control' => 'no-store, no-cache',
+            'Content-Type' => 'application/x-zip',
+            'Content-Length' => $length,
+            'Content-Disposition' => "attachment;filename={$c}-extracted.zip",
+            'Content-Description' => "Gettext POT file",
+        ));
+//        header('Cache-Control: no-store, no-cache');
+//        header('Content-Type: application/x-zip');
+//        header("Content-Length: {$length}");
+//        header("Content-Disposition: attachment;filename={$c}-extracted.zip");
+//        header('Content-Description: Gettext POT File');
+//        echo $contents;
+        $response->send();
+
         `rm -rf /tmp/{$key}`;
-        die;
+        exit;
     }
     
     public function compilemoAction()
