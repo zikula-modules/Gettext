@@ -102,7 +102,7 @@ msgstr ""
 EOF
 cp pofile.pot pofile_js.pot
 
-if [ $ARCHV == 'zip' ]; then
+if [ $ARCHV = 'zip' ]; then
   tar zxf $ARCHIVE >/dev/null 2>/dev/null
 fi
 unzip $ARCHIVE >/dev/null 2>/dev/null
@@ -187,7 +187,7 @@ if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale
 
   echo "Done."
 
-  if [ $ARCHV == 'zip' ]; then
+  if [ $ARCHV = 'zip' ]; then
     cd ..
     zip -r $DOMAIN.zip $COMPONENT/locale/$POT >/dev/null 2>/dev/null
     if [ $? -ne 0 ]; then
