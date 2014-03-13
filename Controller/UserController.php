@@ -149,8 +149,13 @@ class UserController extends \Zikula_AbstractController
         $pid = sha1($time);
         $path = "/tmp/{$pid}";
         $poPath = $po->getRealPath();
-        `/tmp/xcompilemo.sh {$path} {$poPath} {$forcefuzzy}`;
-        `rm -f /tmp/xcompilemo.sh`;
+        $command = "/tmp/xcompilemo.sh {$path} {$poPath} {$forcefuzzy}";
+        $output = '';
+        exec($command, $outputArray, $result);
+        foreach ($outputArray as $out) {
+            $output .= "{$out}\n";
+        }
+        `/bin/rm -f /tmp/xcompilemo.sh`;
         $this->view->assign('key', $pid);
         return $this->response($this->view->fetch('User/downloadmo.tpl'));
     }
