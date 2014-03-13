@@ -124,7 +124,7 @@ class UserController extends \Zikula_AbstractController
 //        header("Content-Disposition: attachment;filename={$c}-extracted.zip");
 //        header('Content-Description: Gettext POT File');
 //        echo $contents;
-        $response->send();
+        $response->sendContent();
 
         `rm -rf /tmp/{$key}`;
         exit;
