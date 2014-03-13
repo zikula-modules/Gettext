@@ -179,6 +179,10 @@ if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale
     exit 1
   fi
   mv $MPATH/pofile.pot $MPATH/$COMPONENT/locale/$POT
+  if [ $? -ne 0 ]; then
+    echo "ERROR: could not move $MPATH/pofile.pot to $MPATH/$COMPONENT/locale/$POT."
+    exit 1
+  fi
 
   # Repeat process for JS
   if [ "$HASJSSTRINGS" -ne 0 ]; then
