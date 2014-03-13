@@ -10,7 +10,7 @@ fi
 mkdir -p $MPATH
 
 if [ -d $MPATH ]; then
-  cd $MPATH/$COMPONENT
+  cd $MPATH
   mv $PO messages.po
   if [ $? -ne 0 ]; then
     echo "ERROR: Failed to move .po file."
