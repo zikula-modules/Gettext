@@ -1,7 +1,5 @@
 {include file="User/menu.tpl"}
 <h2>{gt text="Gettext Key Extractor" }</h2>
-<br />
-<hr />
 <pre>
     DEBUG OUTPUT:
     {$output}
