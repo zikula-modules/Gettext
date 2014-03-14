@@ -1,9 +1,10 @@
 {include file="User/menu.tpl"}
 <div class="alert alert-info">
     <p>
-        {gt text="Create a zip or tar.gz of your module or theme extension.  The archive should contain the extension's folder."}  <br />
-        {gt text="In this example we will used a module called HelloWorld.  The archive would contain the module files in the folder"} <strong>HelloWorld</strong>
-        {gt text="just as you would expect it to appear in your modules/ folder."}
+        {gt text="Create a zip or tar.gz of your module or theme extension. The archive should contain the extension's folder."}<br />
+        {gt text="In this example we will used a module called HelloWorld. The archive would contain the module files in the folder"} <strong>HelloWorld</strong>
+        {gt text="just as you would expect it to appear in your modules/ folder."}<br />
+        {gt text='This module will attempt to extract a POT file from %1$s, %2$s and %3$s type extensions.' tag1='<strong>Core-1.2</strong>' tag2='<strong>Core-1.3</strong>' tag3='<strong>Core-1.4</strong>'}
     </p>
     <pre>
         HelloWorld/
