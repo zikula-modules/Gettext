@@ -108,7 +108,7 @@ fi
 unzip $ARCHIVE >/dev/null 2>/dev/null
 
 # start the actual extraction
-if [ -d "$MPATH/$COMPONENT/locale" ] || [ -d "$MPATH/$COMPONENT/Resources/locale" ]; then
+if [ 1 eq 1 ]; then
   cd $MPATH/$COMPONENT
   touch $PO
   touch $POJS
