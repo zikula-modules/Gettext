@@ -12,7 +12,6 @@ namespace Zikula\GettextModule\Controller;
 
 use LogUtil;
 use SecurityUtil;
-use ModUtil;
 use System;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; // used in annotations - do not remove
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,7 +42,7 @@ class UserController extends \Zikula_AbstractController
     public function extractAction()
     {
         // security check
-        if (!SecurityUtil::checkPermission('Gettext::', '::', ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
         $this->view->setCaching(false);
@@ -96,11 +95,11 @@ class UserController extends \Zikula_AbstractController
         `/bin/rm -f /tmp/xcompile.php`;
         `/bin/rm -f /tmp/xcompilejs.php`;
         `rm -rf /{$path}/{$component}`;
-        $this->view->assign('result', $result);
-        $this->view->assign('key', $pid);
-        $this->view->assign('c', $component);
-        $this->view->assign('d', $domain);
-        $this->view->assign('output', $output);
+        $this->view->assign('result', $result)
+            ->assign('key', $pid)
+            ->assign('c', $component)
+            ->assign('d', $domain)
+            ->assign('output', $output);
         return $this->response($this->view->fetch('User/download.tpl'));
     }
 
@@ -114,7 +113,7 @@ class UserController extends \Zikula_AbstractController
     public function downloadAction()
     {
         // security check
-        if (!SecurityUtil::checkPermission('Gettext::', '::', ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
         $key = $this->request->query->get('key', null);
@@ -154,7 +153,7 @@ class UserController extends \Zikula_AbstractController
     {
         $this->view->setCaching(false);
         // security check
-        if (!SecurityUtil::checkPermission('Gettext::', '::', ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
         $submit = $this->request->request->get('submit', null);
@@ -193,31 +192,33 @@ class UserController extends \Zikula_AbstractController
     /**
      * @Route("/downloadmo")
      *
-     * Download a complile .MO file
+     * Download a compiled .MO file
      *
      * @return false|string|RedirectResponse
      */
     public function downloadmoAction()
     {
         // security check
-        if (!SecurityUtil::checkPermission('Gettext::', '::', ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
         $key = $this->request->query->get('key', null);
         $key = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $key);
         $file = "/tmp/{$key}/messages.mo";
-        $contents = file_get_contents($file);
-        $length = strlen($contents);
+        $length = filesize($file);
         if ($length < 1) {
             return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
         }
-        header('Content-Type: application/octet-stream');
-        header("Content-Length: {$length}");
-        header('Content-Disposition: attachment;filename=messages.mo');
-        header('Content-Description: gettext mo file');
-        echo $contents;
+        $response = new Response(file_get_contents($file), Response::HTTP_OK, array(
+            'Content-Type' => 'application/octet-stream',
+            'Content-Length' => $length,
+            'Content-Disposition' => "attachment;filename=messages.mo",
+            'Content-Description' => "Gettext mo file",
+        ));
+        $response->send();
+
         `rm -rf /tmp/{$key}`;
-        return 'Finished!';
+        exit;
     }
 
 }

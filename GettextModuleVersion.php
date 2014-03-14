@@ -18,10 +18,10 @@ class GettextModuleVersion extends \Zikula_AbstractVersion
             'oldnames' => array('Gettext'),
             'displayname' => $this->__('Gettext'),
             'url' => $this->__('gettext'),
-            'description' => $this->__('Extract translation strings from themes and modules'),
+            'description' => $this->__('Extract translation strings from extensions'),
             'version' => '1.3.0',
             'core_min' => '1.4.0',
-            'securityschema' => array('Gettext::' => '::'),
+            'securityschema' => array($this->name . '::' => '::'),
         );
     }
 
