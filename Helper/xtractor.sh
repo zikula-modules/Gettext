@@ -108,7 +108,7 @@ fi
 unzip $ARCHIVE >/dev/null 2>/dev/null
 
 # start the actual extraction
-if [ 1 eq 1 ]; then
+if [ -d "$MPATH/$COMPONENT" ]; then
   cd $MPATH/$COMPONENT
   touch $PO
   touch $POJS
