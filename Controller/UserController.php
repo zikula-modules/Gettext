@@ -104,7 +104,6 @@ class UserController extends \Zikula_AbstractController
         $d = $this->request->query->get('d', null);
         $d = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $d);
         $file = "/tmp/{$key}/{$d}.zip";
-//        $contents = file_get_contents($file);
         $length = filesize($file);
         if ($length < 1) {
             return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
@@ -119,12 +118,6 @@ class UserController extends \Zikula_AbstractController
             'Content-Description' => "Gettext POT file",
         ));
         $response->send();
-//        header('Cache-Control: no-store, no-cache');
-//        header('Content-Type: application/x-zip');
-//        header("Content-Length: {$length}");
-//        header("Content-Disposition: attachment;filename={$c}-extracted.zip");
-//        header('Content-Description: Gettext POT File');
-//        echo $contents;
 
         `rm -rf /tmp/{$key}`;
         exit;
