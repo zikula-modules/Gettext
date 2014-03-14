@@ -14,9 +14,9 @@ use LogUtil;
 use SecurityUtil;
 use ModUtil;
 use System;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; // used in annotations - do not remove
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; // used in annotations - do not remove
 
 class UserController extends \Zikula_AbstractController
 {
@@ -126,7 +126,7 @@ class UserController extends \Zikula_AbstractController
         $file = "/tmp/{$key}/{$d}.zip";
         $length = filesize($file);
         if ($length < 1) {
-            return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
+            return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
         }
         ob_end_clean();
         ini_set('zlib.output_compression', 0);
@@ -209,7 +209,7 @@ class UserController extends \Zikula_AbstractController
         $contents = file_get_contents($file);
         $length = strlen($contents);
         if ($length < 1) {
-            return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
+            return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
         }
         header('Content-Type: application/octet-stream');
         header("Content-Length: {$length}");
