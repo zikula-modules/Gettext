@@ -111,20 +111,20 @@ class UserController extends \Zikula_AbstractController
         }
         ob_end_clean();
         ini_set('zlib.output_compression', 0);
-        $response = new Response(readfile($file), Response::HTTP_OK, array(
+        $response = new Response(file_get_contents($file), Response::HTTP_OK, array(
             'Cache-Control' => 'no-store, no-cache',
             'Content-Type' => 'application/x-zip',
             'Content-Length' => $length,
             'Content-Disposition' => "attachment;filename={$c}-extracted.zip",
             'Content-Description' => "Gettext POT file",
         ));
+        $response->send();
 //        header('Cache-Control: no-store, no-cache');
 //        header('Content-Type: application/x-zip');
 //        header("Content-Length: {$length}");
 //        header("Content-Disposition: attachment;filename={$c}-extracted.zip");
 //        header('Content-Description: Gettext POT File');
 //        echo $contents;
-        $response->sendContent();
 
         `rm -rf /tmp/{$key}`;
         exit;
