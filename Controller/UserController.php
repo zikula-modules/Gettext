@@ -16,17 +16,30 @@ use ModUtil;
 use System;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; // used in annotations - do not remove
 
 class UserController extends \Zikula_AbstractController
 {
+
     /**
-     * entry point for the module
+     * @Route("")
+     *
+     * module entry point
+     *
+     * @return RedirectResponse
      */
-    public function mainAction()
+    public function indexAction()
     {
-        return new RedirectResponse(System::normalizeUrl(ModUtil::url('Gettext', 'user', 'extract')));
+        return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
     }
-    
+
+    /**
+     * @Route("/extract")
+     *
+     * extract a .POT file from a zip
+     *
+     * @return false|Response
+     */
     public function extractAction()
     {
         // security check
@@ -90,7 +103,14 @@ class UserController extends \Zikula_AbstractController
         $this->view->assign('output', $output);
         return $this->response($this->view->fetch('User/download.tpl'));
     }
-    
+
+    /**
+     * @Route("/download")
+     *
+     * download the extracted .POT files
+     *
+     * @return false|RedirectResponse
+     */
     public function downloadAction()
     {
         // security check
@@ -122,7 +142,14 @@ class UserController extends \Zikula_AbstractController
         `rm -rf /tmp/{$key}`;
         exit;
     }
-    
+
+    /**
+     * @Route("/compile")
+     *
+     * Compile and .MO file from a .PO file
+     *
+     * @return false|Response
+     */
     public function compilemoAction()
     {
         $this->view->setCaching(false);
@@ -162,7 +189,14 @@ class UserController extends \Zikula_AbstractController
         $this->view->assign('key', $pid);
         return $this->response($this->view->fetch('User/downloadmo.tpl'));
     }
-    
+
+    /**
+     * @Route("/downloadmo")
+     *
+     * Download a complile .MO file
+     *
+     * @return false|string|RedirectResponse
+     */
     public function downloadmoAction()
     {
         // security check
