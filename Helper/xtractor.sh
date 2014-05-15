@@ -7,6 +7,7 @@ then
     echo ' - outputfolder: absolute path to the automatically created folder for extraction.'
     echo ' - inputpackage: absolute path to the zipfile or folder where the source is located.'
     echo ' - packagename:  the name of the module or theme, e.g. HelloWorld.'
+    echo ' - domain:       packagetype_modulename (lowercase), e.g. module_helloworld'
     echo ' - [zip|plain]:  specifies whether the inputpackage is a zip file of a plain folder.'
     echo ' - [tmp|local]:  run scripts from /tmp (default) or relative from local current folder.'
     echo 'Note: specified paths should be absolute'
