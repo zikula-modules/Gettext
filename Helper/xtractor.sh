@@ -11,6 +11,7 @@ then
     echo ' - [zip|plain]:  specifies whether the inputpackage is a zip file of a plain folder.'
     echo ' - [tmp|local]:  run scripts from /tmp (default) or relative from local current folder.'
     echo 'Note: specified paths should be absolute'
+    echo 'Example: ./xtractor.sh /path/Helper/Scribite /path/Helper/Scribite.zip Scribite module_scribite zip local'
     exit 1
 fi
 
