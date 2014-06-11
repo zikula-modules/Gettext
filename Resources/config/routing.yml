@@ -1,4 +1,3 @@
 zikulagettextmodule:
     resource: "@ZikulaGettextModule/Controller"
-    prefix:   /gettext
     type:     annotation
