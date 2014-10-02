@@ -3,5 +3,5 @@
 <br />
 <div class="alert alert-success">
     <h2>{gt text="Compilation complete!"}</h2>
-    <a class="btn btn-lg btn-success" href="{modurl modname=$module type='user' func='downloadmo' key=$key}"><i class='fa fa-cloud-download fa-2x'></i> {gt text="Download"}</a>
+    <a class="btn btn-lg btn-success" href="{route name='zikulagettextmodule_user_downloadmo' key=$key}"><i class='fa fa-cloud-download fa-2x'></i> {gt text="Download"}</a>
 </div>

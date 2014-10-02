@@ -10,12 +10,14 @@
 
 namespace Zikula\GettextModule\Controller;
 
-use LogUtil;
 use SecurityUtil;
 use System;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; // used in annotations - do not remove
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method; // used in annotations - do not remove
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController extends \Zikula_AbstractController
 {
@@ -37,39 +39,44 @@ class UserController extends \Zikula_AbstractController
      *
      * extract a .POT file from a zip
      *
+     * @param Request $request
+     *
      * @return false|Response
      */
-    public function extractAction()
+    public function extractAction(Request $request)
     {
         // security check
         if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new AccessDeniedException();
         }
         $this->view->setCaching(false);
-        $component = $this->request->request->get('component', '');
+        $component = $request->request->get('component', '');
         $component = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $component);
-        $mtype = $this->request->request->get('mtype', '');
+        $mtype = $request->request->get('mtype', '');
         $this->view->assign('mtype', $mtype);
         $domain = strtolower("{$mtype}_{$component}");
-        $submit = $this->request->request->get('submit', null);
+        $submit = $request->request->get('submit', null);
         if (!isset($submit)) {
             $this->view->assign('mtype', '');
-            return $this->response($this->view->fetch('User/extract.tpl'));
+
+            return new Response($this->view->fetch('User/extract.tpl'));
         }
         if (!$mtype) {
-            $this->request->getSession()->getFlashBag()->add('error', $this->__('You must select module or theme'));
-            return $this->response($this->view->fetch('User/extract.tpl'));
+            $request->getSession()->getFlashBag()->add('error', $this->__('You must select module or theme'));
+            return new Response($this->view->fetch('User/extract.tpl'));
         }
         if (!$component) {
-            $this->request->getSession()->getFlashBag()->add('error', $this->__('You must enter the name of the module or theme (case sensitive)'));
-            return $this->response($this->view->fetch('User/extract.tpl'));
+            $request->getSession()->getFlashBag()->add('error', $this->__('You must enter the name of the module or theme (case sensitive)'));
+
+            return new Response($this->view->fetch('User/extract.tpl'));
         }
         /** @var $archive \Symfony\Component\HttpFoundation\File\UploadedFile */
-        $archive = $this->request->files->get('archive', null);
+        $archive = $request->files->get('archive', null);
         if (!$archive->isValid()) {
-            $this->request->getSession()->getFlashBag()->add('error', $this->__f('Please specify valid %s file!', 'zip/tgz'));
-            $this->request->getSession()->getFlashBag()->add('error', $archive->getErrorMessage());
-            return $this->response($this->view->fetch('User/extract.tpl'));
+            $request->getSession()->getFlashBag()->add('error', $this->__f('Please specify valid %s file!', 'zip/tgz'));
+            $request->getSession()->getFlashBag()->add('error', $archive->getErrorMessage());
+
+            return new Response($this->view->fetch('User/extract.tpl'));
         }
 
         // setup
@@ -100,31 +107,35 @@ class UserController extends \Zikula_AbstractController
             ->assign('c', $component)
             ->assign('d', $domain)
             ->assign('output', $output);
-        return $this->response($this->view->fetch('User/download.tpl'));
+
+        return new Response($this->view->fetch('User/download.tpl'));
     }
 
     /**
-     * @Route("/download")
+     * @Route("/download/{key}/{c}/{d}")
+     * @Method("GET")
      *
      * download the extracted .POT files
      *
+     * @param $key
+     * @param $c
+     * @param $d
+     *
      * @return false|RedirectResponse
      */
-    public function downloadAction()
+    public function downloadAction($key, $c, $d)
     {
         // security check
         if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new AccessDeniedException();
         }
-        $key = $this->request->query->get('key', null);
         $key = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $key);
-        $c = $this->request->query->get('c', null);
         $c = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $c);
-        $d = $this->request->query->get('d', null);
         $d = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $d);
         $file = "/tmp/{$key}/{$d}.zip";
         $length = filesize($file);
         if ($length < 1) {
+
             return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
         }
         ob_end_clean();
@@ -147,27 +158,31 @@ class UserController extends \Zikula_AbstractController
      *
      * Compile and .MO file from a .PO file
      *
+     * @param Request $request
+     *
      * @return false|Response
      */
-    public function compilemoAction()
+    public function compilemoAction(Request $request)
     {
         $this->view->setCaching(false);
         // security check
         if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new AccessDeniedException();
         }
-        $submit = $this->request->request->get('submit', null);
-        $forcefuzzy = $this->request->request->get('forcefuzzy', false);
+        $submit = $request->request->get('submit', null);
+        $forcefuzzy = $request->request->get('forcefuzzy', false);
         $forcefuzzy = $forcefuzzy ? 'yes' : 'no';
         if (!isset($submit)) {
-            return $this->response($this->view->fetch('User/compilemo.tpl'));
+
+            return new Response($this->view->fetch('User/compilemo.tpl'));
         }
         /** @var $po \Symfony\Component\HttpFoundation\File\UploadedFile */
-        $po = $this->request->files->get('po', null);
+        $po = $request->files->get('po', null);
         if (!$po->isValid()) {
-            $this->request->getSession()->getFlashBag()->add('error', $this->__f('Please specify valid %s file!', '.po'));
-            $this->request->getSession()->getFlashBag()->add('error', $po->getErrorMessage());
-            return $this->response($this->view->fetch('User/compilemo.tpl'));
+            $request->getSession()->getFlashBag()->add('error', $this->__f('Please specify valid %s file!', '.po'));
+            $request->getSession()->getFlashBag()->add('error', $po->getErrorMessage());
+
+            return new Response($this->view->fetch('User/compilemo.tpl'));
         }
         // get files
         $helper = file_get_contents('modules/Gettext/Helper/xcompilemo.sh');
@@ -186,27 +201,31 @@ class UserController extends \Zikula_AbstractController
         }
         `/bin/rm -f /tmp/xcompilemo.sh`;
         $this->view->assign('key', $pid);
-        return $this->response($this->view->fetch('User/downloadmo.tpl'));
+
+        return new Response($this->view->fetch('User/downloadmo.tpl'));
     }
 
     /**
-     * @Route("/downloadmo")
+     * @Route("/downloadmo/{key}")
+     * @Method("GET")
      *
      * Download a compiled .MO file
      *
+     * @param $key
+     *
      * @return false|string|RedirectResponse
      */
-    public function downloadmoAction()
+    public function downloadmoAction($key)
     {
         // security check
         if (!SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new AccessDeniedException();
         }
-        $key = $this->request->query->get('key', null);
         $key = preg_replace('/([^a-zA-Z0-9|^\\-|^_])/', '', $key);
         $file = "/tmp/{$key}/messages.mo";
         $length = filesize($file);
         if ($length < 1) {
+
             return new RedirectResponse($this->get('router')->generate('zikulagettextmodule_user_extract'));
         }
         $response = new Response(file_get_contents($file), Response::HTTP_OK, array(
