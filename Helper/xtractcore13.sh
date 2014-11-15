@@ -40,20 +40,20 @@ echo "COPYING TREE"
 cp -a $MPATH/* $TMPD
 cd $TMPD
 
-if [ -d "$TMPD/app/Resources/locale" ]; then
+if [ -d "$TMPD/locale" ]; then
   echo "EXTRACTING CORE FILES..."
   echo "Finding PHP files..."
-  find -type f -iname "*.php" |egrep "\./lib/|\./includes/|\./install/|\./system/|\./themes/Zikula/Theme/Andreas08Theme/|\.themes/Zikula/Theme/AtomTheme/|\.themes/Zikula/Theme/BootstrapTheme/|\.themes/Zikula/Theme/PrinterTheme/|\.themes/Zikula/Theme/RssTheme/|\.themes/SeaBreezeTheme/" > filelist.txt
+  find -type f -iname "*.php" |egrep "\./lib/|\./includes/|\./install/|\./system/|\./themes/andreas08/|\./themes/Atom/|\./themes/Printer/|\./themes/rss/|\./themes/SeaBreeze/|\./themes/voodoodolly/" > filelist.txt
   ls *.php >> filelist.txt
   
   echo "Finding templates..."
   egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext\(|_pgettext\(|_npgettext\(|_dpgettext\(|_dnpgettext\(|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|grep -v .js|uniq \
-    |egrep "includes/templates/|install/|system/|themes/Zikula/Theme/Andreas08Theme/|themes/Zikula/Theme/AtomTheme/|themes/Zikula/Theme/PrinterTheme/|themes/Zikula/Theme/RssTheme/|themes/SeaBreezeTheme/" > t_filelist.txt
+    |egrep "includes/templates/|install/|system/|themes/andreas08/|themes/Atom/|themes/Printer/|themes/rss/|themes/SeaBreeze/|themes/voodoodolly/" > t_filelist.txt
 
   # separate javascript
   echo "Finding javascript..."
   egrep -r "__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext\(|_pgettext\(|_npgettext\(|_dpgettext\(|_dnpgettext\(|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep .js|uniq \
-    |egrep "javascript/|includes/templates/|install/|system/|themes/Zikula/Theme/Andreas08Theme/|themes/Zikula/Theme/AtomTheme/|themes/Zikula/Theme/BootstrapTheme/|themes/Zikula/Theme/PrinterTheme/|themes/Zikula/Theme/RssTheme/|themes/SeaBreezeTheme/" > js_filelist.txt
+    |egrep "javascript/|includes/templates/|install/|system/|themes/andreas08/|themes/Atom/|themes/Printer/|themes/rss/|themes/SeaBreeze/|themes/voodoodolly/" > js_filelist.txt
 
   echo "Compiling templates..."
   for TEMPLATE in `cat t_filelist.txt`
@@ -89,9 +89,9 @@ if [ -d "$TMPD/app/Resources/locale" ]; then
     --keyword=_np:1c,2,3 \
     --keyword=__fp:1c,2 \
     --keyword=_fnp:1c,2,3 \
-    --output-dir=app/Resources/locale -o $POT -f filelist.txt
-  msgmerge -U pofile.pot app/Resources/locale/$POT
-  cp -f pofile.pot $MPATH/app/Resources/locale/$POT
+    --output-dir=locale -o $POT -f filelist.txt
+  msgmerge -U pofile.pot locale/$POT
+  cp -f pofile.pot $MPATH/locale/$POT
 
   xgettext --debug --language=PHP --add-comments=! --from-code=utf-8 \
     --keyword=_gettext:1 \
@@ -111,12 +111,12 @@ if [ -d "$TMPD/app/Resources/locale" ]; then
     --keyword=_np:1c,2,3 \
     --keyword=__fp:1c,2 \
     --keyword=_fnp:1c,2,3 \
-    --output-dir=app/Resources/locale -o $POTJS -f js_filelist.txt
-  msgmerge -U pofile_js.pot app/Resources/locale/$POTJS
-  cp -f pofile_js.pot $MPATH/app/Resources/locale/$POTJS
+    --output-dir=locale -o $POTJS -f js_filelist.txt
+  msgmerge -U pofile_js.pot locale/$POTJS
+  cp -f pofile_js.pot $MPATH/locale/$POTJS
 
-  echo "Keys created in $MPATH/app/Resources/locale/$POT"
-  echo "Keys created in $MPATH/app/Resources/locale/$POTJS"
+  echo "Keys created in $MPATH/locale/$POT"
+  echo "Keys created in $MPATH/locale/$POTJS"
 
   rm -rf $TMPD
   cd $BEFORE
