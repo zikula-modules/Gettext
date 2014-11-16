@@ -59,14 +59,14 @@ if [ -d "$TMPD/app/Resources/locale" ]; then
   for TEMPLATE in `cat t_filelist.txt`
   do
     echo $TEMPLATE
-    /usr/bin/php -f $WHEREAMI/modules/Gettext/Helper/xcompile.php $TEMPLATE
+    /usr/bin/php -f $MPATH/modules/Gettext/Helper/xcompile.php $TEMPLATE
   done
 
   echo "Compiling javascript files..."
   for TEMPLATE in `cat js_filelist.txt`
   do
     echo $TEMPLATE
-    /usr/bin/php -f $WHEREAMI/modules/Gettext/Helper/xcompilejs.php $TEMPLATE
+    /usr/bin/php -f $MPATH/modules/Gettext/Helper/xcompilejs.php $TEMPLATE
   done
   
   cat t_filelist.txt >> filelist.txt
