@@ -51,7 +51,7 @@ if [ -d "$TMPD/app/Resources/locale" ]; then
     |egrep "includes/templates/|system/|themes/Zikula/Theme/Andreas08Theme/|themes/Zikula/Theme/AtomTheme/|themes/Zikula/Theme/PrinterTheme/|themes/Zikula/Theme/RssTheme/|themes/SeaBreezeTheme/" > t_filelist.txt
 
   echo "Finding twig templates..."
-  egrep -r "(<\!--\[|\{) {0,}gt [a-zA-Z0-9]+=|(<\!--\[|\{) {0,}[a-zA-Z0-9]+ .+__[a-zA-Z0-9]+=|__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(|_gettext\(|_ngettext\(|_dgettext\(|_dngettext\(|_pgettext\(|_npgettext\(|_dpgettext\(|_dnpgettext\(|\{gettext" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|grep -v .js|uniq \
+  egrep -r "__p\(|__fp\(|_np\(|_fnp\(|__\(|_n\(|__f\(|_fn\(|no__\(" * |awk -F: '{print $1}'|grep -v .svn|grep -v .php|grep -v .js|uniq \
     |egrep "app/Resources/|lib/Zikula/Bundle/CoreBundle/Resources/views|lib/Zikula/Bundle/CoreInstallerBundle/Resources/views" > twig_filelist.txt
 
   # separate javascript
@@ -81,6 +81,7 @@ if [ -d "$TMPD/app/Resources/locale" ]; then
   done
   
   cat t_filelist.txt >> filelist.txt
+  cat twig_filelist.txt >> filelist.txt
   echo "EXTRACTING KEYS..."
   xgettext --debug --language=PHP --add-comments=! --from-code=utf-8 \
     --keyword=_gettext:1 \
