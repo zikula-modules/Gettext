@@ -208,7 +208,7 @@ if [ -d "$MPATH/$COMPONENT" ]; then
       exit 1
     fi
 
-    if [ "$HASJSSTRINGS" -ne 0 ]; then
+    if [ "$HASJSSTRINGS" -ne 0 ] && [ -f $COMPONENT/locale/$POTJS ]; then
       zip -r $DOMAIN.zip $COMPONENT/locale/$POTJS >/dev/null 2>/dev/null
       if [ $? -ne 0 ]; then
         echo "ERROR: Failed to add JS POT to ZIP file - see output for explanation."
