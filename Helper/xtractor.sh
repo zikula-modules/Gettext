@@ -71,13 +71,16 @@ extractstringsjs() {
     --keyword=_fnp:1c,2,3 \
     --output-dir=$MPATH -o $POTJS -f js_filelist.txt 2>&1
 
-  echo "GENERATING JS POT FILE..."
-  msgmerge -U $MPATH/pofile_js.pot $MPATH/$POTJS 2>&1
-  if [ $? -ne 0 ]; then
-    echo "ERROR: Failed to generate POT file - see output for explanation."
-    exit 1
+  if [ -f $MPATH/pofile_js.pot ] && [ -f $MPATH/POTJS ]
+  then
+    echo "GENERATING JS POT FILE..."
+    msgmerge -U $MPATH/pofile_js.pot $MPATH/$POTJS 2>&1
+    if [ $? -ne 0 ]; then
+      echo "ERROR: Failed to generate POT file - see output for explanation."
+      exit 1
+    fi
+    mv $MPATH/pofile_js.pot $MPATH/$COMPONENT/locale/$POTJS
   fi
-  mv $MPATH/pofile_js.pot $MPATH/$COMPONENT/locale/$POTJS
 }
 
 # create outputfolder, extract inputpackage and generate empty pot files
